@@ -9,6 +9,7 @@ Route::group([
     Route::resources([
         'index' => PayjsController::class,
     ]);
+    Route::any('order/refund', 'OrderController@refund');
     Route::resources([
         'order' => OrderController::class,
     ]);
