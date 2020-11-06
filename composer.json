@@ -1,0 +1,34 @@
+{
+    "name": "dedemao/dcat-admin-payjs",
+    "description": "适用于dcat-admin的payjs插件",
+    "type": "library",
+    "keywords": ["dcat-admin", "extension", "payjs"],
+    "homepage": "https://github.com/dedemao/dcat-admin-payjs",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dedemao",
+            "email": "884358@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "dcat/laravel-admin": "^2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dedemao\\Payjs\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "dcat-admin": "Dedemao\\Payjs\\DcatAdminPayjsServiceProvider",
+        "laravel": {
+            "providers": [
+                "Dedemao\\Payjs\\DcatAdminPayjsServiceProvider"
+            ]
+        }
+    }
+}
