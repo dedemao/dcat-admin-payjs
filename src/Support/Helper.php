@@ -1,9 +1,12 @@
 <?php
 
-if ( ! function_exists('getLocalDomain')) {
-    function getPayChannelName($channel)
+namespace Dedemao\Payjs\Support;
+
+class Helper
+{
+    public static function getPayChannelName($channel)
     {
-        switch ($channel){
+        switch ($channel) {
             case 'all':
                 return '支付宝和微信';
             case 'alipay':
@@ -12,28 +15,27 @@ if ( ! function_exists('getLocalDomain')) {
                 return '微信';
         }
     }
-}
-if ( ! function_exists('isWeixin')) {
-    function isWeixin() {
+
+    public static function isWeixin()
+    {
         if (strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false) {
             return true;
         } else {
             return false;
         }
     }
-}
-if ( ! function_exists('isAlipay')) {
-    function isAlipay() {
-        if( strpos($_SERVER['HTTP_USER_AGENT'], 'AlipayClient') !== false ) {
+
+    public static function isAlipay()
+    {
+        if (strpos($_SERVER['HTTP_USER_AGENT'], 'AlipayClient') !== false) {
             return true;
         }
         return false;
     }
-}
-if ( ! function_exists('isMobile')) {
-    function isMobile()
+
+    public static function isMobile()
     {
-        if (isWeixin() || isAlipay()) {
+        if (self::isWeixin() || self::isAlipay()) {
             return true;
         }
         // 如果有HTTP_X_WAP_PROFILE则一定是移动设备
@@ -63,22 +65,9 @@ if ( ! function_exists('isMobile')) {
         }
         return false;
     }
-}
 
-if ( ! function_exists('generateOutTradeNo')) {
-    function generateOutTradeNo()
+    public static function generateOutTradeNo()
     {
-        return date('YmdHis').(microtime(true) % 1) * 1000 .mt_rand(0, 9999);
-    }
-}
-
-
-if ( ! function_exists('getMask')) {
-    function getMask($str,$len=4,$start=-3,$mask='*')
-    {
-        $size = strlen($str);
-        $size = $size > $len ? $len : ceil($size*0.6);
-        $str = substr_replace($str,str_pad('',$size,$mask),$start,$len);
-        return $str;
+        return date('YmdHis') . (microtime(true) % 1) * 1000 . mt_rand(0, 9999);
     }
 }

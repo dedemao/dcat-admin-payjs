@@ -42,12 +42,12 @@ class DcatAdminPayjsServiceProvider extends ServiceProvider
             $this->loadRoutesFrom($routes);
         }
 
-        if ($this->app->runningInConsole()) {
+        //if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../database' => database_path(),
                 __DIR__.'/../routes' => base_path('routes'),
             ], 'payjs-migrations');
-        }
+        //}
     }
 
     public function settingForm()

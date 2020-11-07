@@ -7,6 +7,7 @@ use Dcat\Admin\Http\Middleware\Pjax;
 use Dcat\Admin\Layout\Content;
 use Dedemao\Payjs\Facades\OrderService;
 use Dedemao\Payjs\Facades\PayjsService;
+use Dedemao\Payjs\Support\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
@@ -27,7 +28,7 @@ class PayController extends Controller
 
     public function index(Request $request)
     {
-        $data['out_trade_no'] = $request['out_trade_no'] ?: generateOutTradeNo();
+        $data['out_trade_no'] = $request['out_trade_no'] ?: Helper::generateOutTradeNo();
         $data['total_fee'] = $request['total_fee'] ? sprintf("%.2f", floatval($request['total_fee'])) : 0.01;
         $data['subject'] = $request['subject'] ?: '订单号：' . $data['out_trade_no'];
         $data['pay_channel'] = $request['pay_channel'] ?: $this->setting['pay_channel'];
@@ -55,7 +56,7 @@ class PayController extends Controller
         $payjs = PayjsService::payment($this->setting);
         //收银台支付
         $url = $payjs->cashier($data);
-        if (in_array($data['pay_channel'],['all','alipay']) && !isAlipay() && !isWeixin()) {
+        if (in_array($data['pay_channel'],['all','alipay']) && !Helper::isAlipay() && !Helper::isWeixin()) {
             $url = "alipays://platformapi/startapp?appId=20000067&url=" . urlencode($url);
         }
         header("Location:{$url}");
@@ -64,7 +65,7 @@ class PayController extends Controller
 
     public function getQrcode(Request $request)
     {
-        $data['out_trade_no'] = $request['out_trade_no'] ?: generateOutTradeNo();
+        $data['out_trade_no'] = $request['out_trade_no'] ?: Helper::generateOutTradeNo();
         $data['total_fee'] = $request['total_fee'] ? sprintf("%.2f", floatval($request['total_fee'])) : 0.01;
         $data['subject'] = $request['subject'] ?: '订单号：' . $data['out_trade_no'];
         $data['pay_channel'] = $this->setting['pay_channel'] ?: 'all';

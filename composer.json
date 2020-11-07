@@ -18,10 +18,7 @@
     "autoload": {
         "psr-4": {
             "Dedemao\\Payjs\\": "src/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+        }
     },
     "extra": {
         "dcat-admin": "Dedemao\\Payjs\\DcatAdminPayjsServiceProvider",

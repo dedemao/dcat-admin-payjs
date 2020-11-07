@@ -11,6 +11,7 @@ use Dedemao\Payjs\Facades\OrderService;
 use Dedemao\Payjs\Models\PayjsOrders;
 use Dcat\Admin\Grid;
 use Dedemao\Payjs\Actions\Refund;
+use Dedemao\Payjs\Support\Helper;
 use Illuminate\Http\Request;
 use Dcat\Admin\Actions\Response;
 
@@ -102,7 +103,7 @@ class OrderController extends AdminController
             $show->field('id', 'ID');
             $labelStyle = $show->model()->type == 'alipay' ? 'info' : 'success';
             $show->field('type', '支付类型')->as(function ($type) {
-                return getPayChannelName($type);
+                return Helper::getPayChannelName($type);
             })->label($labelStyle);
             $show->field('out_trade_no', '订单号');
             $show->field('subject', '订单标题');

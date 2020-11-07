@@ -7,7 +7,7 @@
 
 ## 安装
 
-1. 下载插件压缩包：https://github.com/dedemao/dcat-admin-payjs/archive/v1.0.1.zip
+1. 下载插件压缩包：https://github.com/dedemao/dcat-admin-payjs/archive/v1.0.2.zip
 
 2. 登录后台，在菜单中选择`开发工具`-->`扩展`，点击`本地安装`，在弹窗中选择上面下载的压缩包文件，点击`提交`按钮。
 
