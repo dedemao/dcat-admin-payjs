@@ -1,19 +1,32 @@
 适用于dcat admin的payjs支付插件
 ======
 ## 前提
-已安装好laravel及dcat admin 2.*
+已安装好laravel及dcat-admin 2.*
+
+安装文档：http://www.dcatadmin.com/docs/2.x/installation.html
 
 ## 安装
 
-```
-composer require dedemao/dcat-admin-payjs
-php artisan payjs:install -m
-````
-执行以上命令后，将自动创建数据库表、自动生成后台相关菜单等，登录后台填写相关配置信息即可使用。
+1. 下载插件压缩包：https://github.com/dedemao/dcat-admin-payjs/archive/v1.0.2.zip
+
+2. 登录后台，在菜单中选择`开发工具`-->`扩展`，点击`本地安装`，在弹窗中选择上面下载的压缩包文件，点击`提交`按钮。
+
+3. 启用并设置插件
+
+4. 发布插件所需要的资源
+
+   ```
+   php artisan payjs:install -m
+   ```
+
+   这一步将自动创建数据库表、生成路由、生成后台菜单等。
 
 ## 卸载
+
+1. 登录后台，在菜单中选择`开发工具`-->`扩展`，点击`卸载`按钮。
+2. 删除数据库表及后台菜单：
+
 ```
-composer remove dedemao/dcat-admin-payjs
 php artisan payjs:uninstall -m
 ````
 
