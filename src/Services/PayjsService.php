@@ -66,13 +66,35 @@ class PayjsService
         $this->outTradeNo = $data['out_trade_no'];
         $this->body = $data['body'] ?? '订单号：' . $this->outTradeNo;
         $this->openid = $data['openid'];
+        $jsapiParameters = $this->getJsApiParameters();
         $commonConfigs = array(
             'subject' => $this->body,               // 订单标题
             'out_trade_no' => $this->outTradeNo,       // 订单号
             'total_fee' => $this->totalFee,             // 金额,单位:元
-            'jsapi' => $this->getJsApiParameters()
+            'jsapi' => $jsapiParameters['jsapi'],
+            'outer_tid' => $jsapiParameters['payjs_order_id'],
         );
         return $commonConfigs;
+    }
+
+    public function cashier($data)
+    {
+        $this->totalFee = $data['total_fee'];
+        $this->outTradeNo = $data['out_trade_no'];
+        $this->body = $data['body'] ?? '订单号：' . $this->outTradeNo;
+
+        $data = array(
+            'mchid' => $this->mchid,               // 商户号
+            'total_fee' => $this->totalFee * 100,             // 金额,单位:分
+            'out_trade_no' => $this->outTradeNo,       // 订单号
+            'body' => $this->body ?: '订单号：' . $this->outTradeNo,               // 订单标题
+            'notify_url' => $this->notifyUrl,             // 接收支付异步通知的回调地址
+            'callback_url' => '',       // 用户支付成功后，前端跳转地址。留空则支付后关闭webview
+            'logo'=>'http://v53.dededemo.com/plus/img/pay-logo.png' //收银台显示的logo图片url
+        );
+        $data['sign'] = $this->sign($data);
+        $this->url = $this->url . '/cashier';
+        return $this->url . '?' . http_build_query($data);
     }
 
     /**
@@ -93,7 +115,7 @@ class PayjsService
         if ($result['return_code'] != 1) {
             exit($result['return_code'] . '：' . $result['return_msg']);
         }
-        return $result['jsapi'];
+        return $result;
     }
 
     /**

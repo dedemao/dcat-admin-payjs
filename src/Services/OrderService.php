@@ -95,6 +95,7 @@ class OrderService
         $order['subject'] = $data['subject'] ?? '订单号：' . $data['out_trade_no'];
         $order['total_fee'] = $data['total_fee'] ? floatval($data['total_fee']) : 0.01;
         $order['type'] = $data['type'] ?? 'weixin';
+        $order['outer_tid'] = $data['outer_tid'] ?? '';
         return $this->create($order);
     }
 

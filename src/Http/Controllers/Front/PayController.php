@@ -48,7 +48,7 @@ class PayController extends Controller
         //添加数据库订单
         $data['outer_tid'] = $jsapiConfig['outer_tid'];
         OrderService::unify($data);
-        return view('payjs::pay/jsapi', $jsapiConfig);
+        return view('dedemao.dcat-admin-payjs::pay/jsapi', $jsapiConfig);
     }
 
     public function cashier($data)
